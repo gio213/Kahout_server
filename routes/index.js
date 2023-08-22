@@ -1,3 +1,5 @@
+import questionRouter from "./question.js";
+
 import express from 'express'
 import usersRouter from './users.js'
 import quizzRouter from './quizz.js'
@@ -9,6 +11,7 @@ import listOfPlayerRouter from "./playersRoutes/getPlayers.js"
 import getTopFiveRouter from   "./playersRoutes/getTopFive.js"
 import createAnswerRouter from '../controllers/answersControllers/createAnswer.js';
 
+
 let router = express.Router();
 // register or log in
 router.use("/", authRouter);
@@ -18,7 +21,10 @@ router.use('/rooms', roomsRouter)
 router.use('/quizz', quizzRouter)
 
 router.use("/users", usersRouter);
+
+router.use("/", questionRouter);
 // enter code to join room as player
+
 router.use('/join_room', joinRoomRouter)
 //create player 
 router.use('/player_infos', createPlayerRouter)
@@ -29,6 +35,7 @@ router.use('/topFive', getTopFiveRouter)
 
 // create answer for questions
 router.use('/add_answer', createAnswerRouter)
+
 
 
 
