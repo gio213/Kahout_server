@@ -5,7 +5,7 @@ const question_post = async (req, res) => {
   const query = `INSERT INTO Questions (text, type, time_limit, multi_select, quizz_id ) VALUES ('${text}', '${type}', '${time_limit} ', '${multi_select}', '${quizz_id}')`;
   db.query(query, (err, result) => {
     if (err) throw err;
-    res.status(201).json({ message: "Question created" });
+    res.status(201).json({ message: "Question test created" });
   });
 };
 
