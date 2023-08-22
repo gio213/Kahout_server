@@ -1,4 +1,4 @@
-import connection from "../config/db.js";
+import connection from "../../config/db.js";
 
 const getRooms = (req, res) => {
     connection.query('SELECT * FROM Rooms', (error, results) => {
@@ -8,4 +8,4 @@ const getRooms = (req, res) => {
 };
 
 
-  export default getRooms;
+export default getRooms;

@@ -1,4 +1,4 @@
-import connection from "../config/db.js";
+import connection from "../../config/db.js";
 
 const addUsers = (req, res) => {
     const {username , password } = request.body;
