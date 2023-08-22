@@ -9,7 +9,7 @@ const sign_post = async (req, res) => {
     res.json({ message: "Please fill in all fields" });
   } else {
     connection.query(
-      "select username from becode_kahoot_db.Users WHERE username = ?",
+      "select username from Users WHERE username = ?",
       [username],
       async (error, results) => {
         if (error) {
@@ -25,7 +25,7 @@ const sign_post = async (req, res) => {
     let hashedPassword = await bcrypt.hash(password, 8);
     console.log(hashedPassword);
     connection.query(
-      "INSERT INTO becode_kahoot_db.Users SET ? ",
+      "INSERT INTO Users SET ? ",
       {
         username: username,
         password: hashedPassword,
@@ -48,7 +48,7 @@ const login_post = async (req, res) => {
     res.status(400).json({ message: "Please fill in all fields" });
   } else {
     connection.query(
-      "select * from becode_kahoot_db.Users WHERE username = ?",
+      "select * from Users WHERE username = ?",
       [username],
       async (error, results) => {
         if (error) {
