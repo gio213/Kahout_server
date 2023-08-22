@@ -1,4 +1,4 @@
-import connection from "../config/db.js";
+import connection from "../../config/db.js";
 
 const getUsers = (req, res) => {
     connection.query('SELECT * FROM Users', (error, results) => {
@@ -8,4 +8,4 @@ const getUsers = (req, res) => {
 };
 
 
-  export default getUsers;
+export default getUsers;

@@ -1,7 +1,7 @@
-import connection from "../config/db.js";
+import connection from "../../config/db.js";
 
 const renameQuizz = (req, res) => {
-    const quizzId = req.params.id; 
+    const quizzId = req.params.id;
     const newName = req.body.newName;
 
     const query = 'UPDATE Quizz SET name = ? WHERE id = ?';

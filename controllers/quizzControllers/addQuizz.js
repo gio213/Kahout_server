@@ -1,9 +1,9 @@
-import connection from "../config/db.js";
+import connection from "../../config/db.js";
 
 const addQuizz = (req, res) => {
     const name = req.body.name;
     const values = [name];
-    const query = 'INSERT INTO Quizz (name) VALUES (?)'; 
+    const query = 'INSERT INTO Quizz (name) VALUES (?)';
     connection.query(query, values, (error, results) => {
         if (error) {
             console.error('Error executing SQL query:', error);
