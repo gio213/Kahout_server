@@ -1,6 +1,5 @@
 import express from 'express';
-import getUsers from '../controllers/users.js';
-import connection from "../config/db.js";
+import getUsers from '../controllers/getUsers.js';
 
 let router = express.Router();
 
