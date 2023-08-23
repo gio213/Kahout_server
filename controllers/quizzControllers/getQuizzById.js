@@ -1,10 +1,10 @@
 import connection from "../../config/db.js";
 
 const getQuizzById = (req, res) => {
-    const id = req.body.id;
+    const id = req.params.id; 
     const value = [id];
     const query = 'SELECT * FROM Quizz WHERE id = ?';
-    connection.query(query,value, (error, results) => {
+    connection.query(query, value, (error, results) => {
         if (error) {
             console.error('Error executing SQL query:', error);
             res.status(500).send('Server Error');
@@ -17,9 +17,8 @@ const getQuizzById = (req, res) => {
             const quizz = results[0];
             res.json(quizz);
         }
-    }
-)}
-
+    });
+};
 
 
 export default getQuizzById;

@@ -22,7 +22,9 @@ router.use('/api-docs', apiDocRouter)
 router.use("/", authRouter);
 // add, show rooms
 router.use('/rooms', roomsRouter)
+// enter code to join room as player
 
+router.use('/join_room', joinRoomRouter)
 // add, show , rename quizz
 router.use('/create_quizz', createQuizzRouter)
 router.use('/rename_quizz', renameQuizzRouter)
@@ -31,9 +33,7 @@ router.use('/quizzlist', getQuizzRouter)
 router.use("/users", usersRouter);
 
 router.use("/", questionRouter);
-// enter code to join room as player
 
-router.use('/join_room', joinRoomRouter)
 //create player 
 router.use('/player_infos', createPlayerRouter)
 // get list of players by ascending score 
