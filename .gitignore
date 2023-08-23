@@ -5,3 +5,4 @@ add
 README.md
 .env
 kahootDb.sql
+swagger.json
