@@ -1,16 +1,18 @@
-import express from 'express'
-import swaggerJSDoc from 'swagger-jsdoc';
-import swaggerUi from 'swagger-ui-express';
-/* import fs from 'fs'; */
 
+import express from "express";
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
+// import fs from 'fs';
 
 import swaggerOptions from "../config/swaggerConfig.js";
 
 let router = express.Router();
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
+
 router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 /* fs.writeFileSync('swagger.json', JSON.stringify(swaggerSpec, null, 2));
  */
+
 /**
  * @swagger
  * /api/signup:
@@ -439,6 +441,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *       500:
  *         description: Server error while processing the request.
  */
+
 
 
 /**
