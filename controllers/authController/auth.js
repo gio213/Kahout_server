@@ -1,6 +1,6 @@
-import connection from "../config/db.js";
+import connection from "../../config/db.js";
 import bcrypt from "bcrypt";
-import generateAccessToken from "../config/generateToken.js";
+import generateAccessToken from "../../config/generateToken.js";
 
 const sign_post = async (req, res) => {
   const { username, password } = req.body;
