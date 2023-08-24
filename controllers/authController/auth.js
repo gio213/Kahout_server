@@ -1,6 +1,7 @@
 import connection from "../../config/db.js";
 import bcrypt from "bcrypt";
 import generateAccessToken from "../../config/generateToken.js";
+import jwt from "jsonwebtoken";
 
 const sign_post = async (req, res) => {
   const { username, password } = req.body;
@@ -42,6 +43,22 @@ const sign_post = async (req, res) => {
   }
 };
 
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader.split(" ")[1];
+  if (token == null) {
+    return res.sendStatus(401);
+  }
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) {
+      console.log(err);
+      return res.sendStatus(403);
+    }
+    req.user = user;
+    next();
+  });
+};
+
 const login_post = async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -60,7 +77,6 @@ const login_post = async (req, res) => {
             const id = results[0].id;
             const token = generateAccessToken({ id: id });
             res.status(200).json({
-              message: "User logged in",
               token: token,
             });
           } else {
@@ -74,4 +90,8 @@ const login_post = async (req, res) => {
   }
 };
 
-export { sign_post, login_post };
+const login_get = (req, res) => {
+  res.json("login granted");
+};
+
+export { sign_post, login_post, login_get, authenticateToken };
