@@ -194,6 +194,303 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *                   type: integer
  *                   description: The ID of the associated room.
  */
+
+/**
+ * @swagger
+ * /api/question:
+ *   post:
+ *     summary: Create a new question.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               text:
+ *                 type: string
+ *                 description: The text of the question.
+ *                 example: What is the capital of France?
+ *               type:
+ *                 type: string
+ *                 description: The type of the question (e.g., "quiz", "true_false").
+ *                 example: quiz
+ *               time_limit:
+ *                 type: integer
+ *                 description: The time limit for answering the question.
+ *                 example: 30
+ *               multi_select:
+ *                 type: boolean
+ *                 description: Whether the question allows multiple answers.
+ *                 example: 0
+ *               quizz_id:
+ *                 type: integer
+ *                 description: The ID of the quiz to which the question belongs.
+ *                 example: 1
+ *     responses:
+ *       201:
+ *         description: Question created successfully.
+ *       500:
+ *         description: Server error while processing the request.
+ */
+/**
+ * @swagger
+ * /api/question/{id}:
+ *   get:
+ *     summary: Retrieve a question by its ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the question to retrieve.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: The question object.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   description: The ID of the question.
+ *                   example: 1
+ *                 text:
+ *                   type: string
+ *                   description: The text of the question.
+ *                   example: What is the capital of France?
+ *                 type:
+ *                   type: string
+ *                   description: The type of the question (e.g., quiz, true/false).
+ *                   example: quiz
+ *                 time_limit:
+ *                   type: integer
+ *                   description: The time limit for answering the question (in seconds).
+ *                   example: 60
+ *                 multi_select:
+ *                   type: boolean
+ *                   description: Whether the question allows multiple answers.
+ *                   example: 0
+ *                 quizz_id:
+ *                   type: integer
+ *                   description: The ID of the quiz this question belongs to.
+ *                   example: 1
+ *                 score:
+ *                   type: integer
+ *                   description: The score associated with the question.
+ *                   example: 100
+ *       404:
+ *         description: Question not found.
+ */
+/**
+ * @swagger
+ * /api/question/{id}:
+ *   delete:
+ *     summary: Delete a question by its ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the question to delete.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Question deleted successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Confirmation message.
+ *                   example: Question deleted
+ *       404:
+ *         description: Question not found.
+ */
+
+/**
+ * @swagger
+ * /api/allquestions/{id}:
+ *   get:
+ *     summary: Get all questions by quiz ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the quiz for which to retrieve the questions.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: List of questions associated with the specified quiz ID.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     description: The ID of the question.
+ *                     example: 1
+ *                   text:
+ *                     type: string
+ *                     description: The text of the question.
+ *                     example: What is the capital of France?
+ *                   type:
+ *                     type: string
+ *                     description: The type of the question (e.g., "quiz", "true_false").
+ *                     example: quiz
+ *                   time_limit:
+ *                     type: integer
+ *                     description: The time limit for answering the question.
+ *                     example: 30
+ *                   multi_select:
+ *                     type: boolean
+ *                     description: Whether the question allows multiple answers.
+ *                     example: 0
+ *                   quizz_id:
+ *                     type: integer
+ *                     description: The ID of the quiz to which the question belongs.
+ *                     example: 1
+ *       404:
+ *         description: Questions not found with the specified quiz ID.
+ */
+/**
+ * @swagger
+ * /api/question/{id}:
+ *   put:
+ *     summary: Update a question by ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the question to update.
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               text:
+ *                 type: string
+ *                 description: The text of the question.
+ *                 example: What is the capital of France?
+ *               type:
+ *                 type: string
+ *                 description: The type of the question (e.g., "quiz", "true_false").
+ *                 example: quiz
+ *               time_limit:
+ *                 type: integer
+ *                 description: The time limit for answering the question.
+ *                 example: 30
+ *               multi_select:
+ *                 type: boolean
+ *                 description: Whether the question allows multiple answers.
+ *                 example: 0
+ *               quizz_id:
+ *                 type: integer
+ *                 description: The ID of the quiz to which the question belongs.
+ *                 example: 1
+ *     responses:
+ *       201:
+ *         description: Question updated successfully.
+ *       500:
+ *         description: Server error while processing the request.
+ */
+/**
+ * @swagger
+ * /api/add_answer:
+ *   post:
+ *     summary: Create a new answer.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               text:
+ *                 type: string
+ *                 description: The text of the answer.
+ *                 example: Paris
+ *               question_id:
+ *                 type: integer
+ *                 description: The ID of the question to which the answer belongs.
+ *                 example: 1
+ *               correct:
+ *                 type: boolean
+ *                 description: Whether the answer is correct or not.
+ *                 example: 1
+ *     responses:
+ *       200:
+ *         description: Answer created successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Answer created
+ *                 id:
+ *                   type: integer
+ *                   example: 123
+ *       500:
+ *         description: Server error while processing the request.
+ */
+/**
+ * @swagger
+ * /api/get_answers:
+ *   get:
+ *     summary: Retrieve answers for a specific question.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the question for which to retrieve answers.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: A list of answers for the specified question.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     description: The ID of the answer.
+ *                     example: 1
+ *                   text:
+ *                     type: string
+ *                     description: The text of the answer.
+ *                     example: Paris
+ *                   question_id:
+ *                     type: integer
+ *                     description: The ID of the question to which the answer belongs.
+ *                     example: 1
+ *                   correct:
+ *                     type: boolean
+ *                     description: Whether the answer is correct or not.
+ *                     example: true
+ *       404:
+ *         description: Answers not found for the specified question.
+ *       500:
+ *         description: Server error while processing the request.
+ */
+
 /**
  * @swagger
  * /api/rooms:
