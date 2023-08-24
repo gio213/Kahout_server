@@ -12,7 +12,7 @@ import createPlayerRouter from "./playersRoutes/createPlayers.js";
 import listOfPlayerRouter from "./playersRoutes/getPlayers.js";
 import getTopFiveRouter from "./playersRoutes/getTopFive.js";
 import createAnswerRouter from "../controllers/answersControllers/createAnswer.js";
-import updateAnswer from "../controllers/answersControllers/updateAnswerText.js";
+import updateAnswer from "../routes/answersRoutes/updateAnswerText.js";
 import apiDocRouter from "./apiDoc.js";
 import getAnswersByQuestionID from "../routes/answersRoutes/getAnswerByQuestionID.js";
 import deleteAnswerRoute from "../routes/answersRoutes/deleteAnswerByID.js";
