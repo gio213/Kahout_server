@@ -13,7 +13,7 @@ const updateAnswer = (req, res) => {
             res.status(500).send('Server Error');
             return;
         }
-        res.status(200).json(results);
+        res.status(200).json({ message: "Answer updated" });
     });
 };
 
