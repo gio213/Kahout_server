@@ -1,20 +1,24 @@
 import connection from "../../config/db.js";
 
-const updateAnswer = (req, res) => {
-    const answerId = req.params.id; 
-    const { text, correct } = req.body;
-    
-    const query = 'UPDATE Answers SET text = ?, correct = ? WHERE id = ?';
-    const values = [text, correct, answerId];
-    
-    connection.query(query, values, (error, results) => {
-        if (error) {
-            console.error('Error executing SQL query:', error);
-            res.status(500).send('Server Error');
-            return;
-        }
-        res.status(200).json(results);
-    });
-};
+const update_answer_by_id = async (req, res) => {
+  const id = req.params.id;
+  const { text, correct } = req.body;
+  console.log(req.body);
+  const value = [text, correct, id];
+  console.log(value);
+  const query = `UPDATE Answers SET text = ?, correct = ? WHERE id = ?`;
 
-export default updateAnswer;
+  connection.query(query, value, (error, results) => {
+    if (error) {
+      console.error("Error executing SQL query:", error);
+      res.status(500).send("Server Error");
+      return;
+    }
+    if (results.length === 0) {
+      res.status(404).json({ message: "Answer not found" });
+    } else {
+      res.json({ message: "Answer updated" });
+    }
+  });
+};
+export default update_answer_by_id;
