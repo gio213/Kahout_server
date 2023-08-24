@@ -449,7 +449,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  */
 /**
  * @swagger
- * /api/get_answers:
+ * /api/get_answers/{id}:
  *   get:
  *     summary: Retrieve answers for a specific question.
  *     parameters:
@@ -487,6 +487,82 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *                     example: true
  *       404:
  *         description: Answers not found for the specified question.
+ *       500:
+ *         description: Server error while processing the request.
+ */
+/**
+ * @swagger
+ * /api/delete_answer/{id}:
+ *   delete:
+ *     summary: Delete an answer by ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the answer to delete.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Answer deleted successfully.
+ *       404:
+ *         description: Answer not found.
+ *       500:
+ *         description: Server error while processing the request.
+ */
+/**
+ * @swagger
+ * /api/delete_answers/{id}:
+ *   delete:
+ *     summary: Delete answers by question ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the question for which to delete answers.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Answers deleted successfully.
+ *       404:
+ *         description: Answers not found for the specified question ID.
+ *       500:
+ *         description: Server error while processing the request.
+ */
+
+/**
+ * @swagger
+ * /api/update_answer/{id}:
+ *   put:
+ *     summary: Update an answer.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the answer to update.
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               text:
+ *                 type: string
+ *                 description: The updated text of the answer.
+ *                 example: Berlin
+ *               correct:
+ *                 type: boolean
+ *                 description: Whether the answer is correct or not.
+ *                 example: 0
+ *     responses:
+ *       200:
+ *         description: Answer updated successfully.
+ *       404:
+ *         description: Answer not found.
  *       500:
  *         description: Server error while processing the request.
  */
@@ -775,12 +851,12 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *         description: Server error while processing the request.
  */
 
+
 /**
  * @swagger
  * /api/quizzlist/update-room/{id}:
  *   put:
- *     summary: Update the room_id of a specific quiz by its ID.
- *     description: Update the room_id of a specific quiz by its ID.
+ *     summary: Update the room_id of a specific quizz by its ID.
  *     parameters:
  *       - in: path
  *         name: id
@@ -788,15 +864,17 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *         description: The ID of the quiz to update.
  *         schema:
  *           type: integer
- *       - in: body
- *         name: room_id
- *         required: true
- *         description: The new room_id value to set for the quiz.
- *         schema:
- *           type: object
- *           properties:
- *             room_id:
- *               type: integer
+ *     requestBody: # Avec requestBody
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               room_id:
+ *                 type: integer
+ *             example:
+ *               room_id: 123
  *     responses:
  *       200:
  *         description: The updated quiz.
@@ -813,6 +891,6 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *                   description: The quiz name.
  *                 room_id:
  *                   type: integer
- *                   description: The updated room_id.
+ *                   description: The updated room_id.  
  */
 export default router;
