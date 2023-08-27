@@ -12,10 +12,32 @@ const swaggerSpec = swaggerJSDoc(swaggerOptions);
 router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 /* fs.writeFileSync('swagger.json', JSON.stringify(swaggerSpec, null, 2));
  */
+/**
+ * @swagger
+ * /api/users/{id}:
+ *   get:
+ *     summary: Get formatted user data including rooms, quizzes, questions, and answers.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the user for which to retrieve the data.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Formatted user data.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *       500:
+ *         description: Server error while processing the request.
+ */
 
 /**
  * @swagger
- * /api/signup:
+ * /api/sign_up:
  *   post:
  *     summary: Register a new user.
  *     description: Register a new user with a unique username and hashed password.
@@ -80,7 +102,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  * @swagger
  * /api/users:
  *   get:
- *     summary: Retrieve a list of JSONPlaceholder users.
+ *     summary: Retrieve a list of users.
  *     description: Retrieve a list of users .
  *     responses:
  *       200:
@@ -167,7 +189,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  * @swagger
  * /api/quizzlist/{id}:
  *   get:
- *     summary: Retrieve a specific quiz by its ID.
+ *     summary: Retrieve a quiz by its ID.
  *     description: Retrieve a specific quiz by its ID.
  *     parameters:
  *       - in: path
@@ -490,6 +512,50 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *       500:
  *         description: Server error while processing the request.
  */
+
+/**
+ * @swagger
+ * /api/get_correct_answers/{id}:
+ *   get:
+ *     summary: Retrieve correct answers for a specific question.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the question for which to retrieve correct answers.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: A list of correct answers for the specified question.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     description: The ID of the answer.
+ *                     example: 1
+ *                   text:
+ *                     type: string
+ *                     description: The text of the answer.
+ *                     example: Paris
+ *                   question_id:
+ *                     type: integer
+ *                     description: The ID of the question to which the answers belongs.
+ *                     example: 1
+ *                   correct:
+ *                     type: boolean
+ *                     description: Whether the answer is correct or not.
+ *                     example: true
+ *       404:
+ *         description: Answers not found for the specified question.
+ *       500:
+ *         description: Server error while processing the request.
+ */
 /**
  * @swagger
  * /api/delete_answer/{id}:
@@ -565,6 +631,41 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *         description: Answer not found.
  *       500:
  *         description: Server error while processing the request.
+ */
+/**
+ * @swagger
+ * /api/update_correct_answer/{id}:
+ *   put:
+ *     summary: Update the correctness of a specific answer by its ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the answer to update.
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               correct:
+ *                 type: boolean
+ *             example:
+ *               correct: 1
+ *     responses:
+ *       200:
+ *         description: The updated answer.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: A success message.
  */
 
 /**
