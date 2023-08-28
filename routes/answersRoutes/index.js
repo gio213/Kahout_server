@@ -5,6 +5,7 @@ import getAnswersByQuestionID from "./getAnswerByQuestionID.js"
 import getCorrectAnswers from "./getCorrectAnswers.js"
 import updateAnswerText from "./updateAnswerText.js"
 import updateCorrectAnswer from "./updateCorrectAnswer.js"
+import updateAnswerTextAndCorrect from "./updateAnswerTextAndCorrect.js"
 
 import express from "express";
 const router = express.Router();
@@ -19,9 +20,11 @@ router.use("/delete_answers",deleteAnswersByQuestionID)
 router.use("/get_answers",getAnswersByQuestionID)
 // get correct answers by question id
 router.use("/get_correct_answers", getCorrectAnswers)
-//update text and correct answer
+//update text  answer
 router.use("/update_answer",updateAnswerText)
 //update the correctness of a specific answer 
 router.use("/update_correct_answers",updateCorrectAnswer)
+// update text and correct answer !!!!!!!!!!! check api
+router.use("/update_answers_text_correct",updateAnswerTextAndCorrect)
  
 export default router;
