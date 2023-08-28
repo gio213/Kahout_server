@@ -1,8 +1,12 @@
 import connection from "../../config/db.js";
 import bcrypt from "bcrypt";
-import generateAccessToken from "../../config/generateToken.js";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+} from "../../config/generateToken.js";
 import jwt from "jsonwebtoken";
 
+// sign_post
 const sign_post = async (req, res) => {
   const { username, password } = req.body;
 
@@ -43,22 +47,27 @@ const sign_post = async (req, res) => {
   }
 };
 
+// authenticateToken
 const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader.split(" ")[1];
+  let token = req.headers.cookie;
+  console.log(token);
   if (token == null) {
-    return res.sendStatus(401);
+    // can't access this route without a token
+    return res.json({ message: "can't access this route without a token" });
   }
+  // checl token expiration
+  token = token.split("=")[1];
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
       console.log(err);
-      return res.sendStatus(403);
+      return res.status(403).json({ message: "token is not valid" });
     }
     req.user = user;
     next();
   });
 };
 
+// login_post
 const login_post = async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -76,8 +85,15 @@ const login_post = async (req, res) => {
           if (isMatch) {
             const id = results[0].id;
             const token = generateAccessToken({ id: id });
+            const refreshToken = generateRefreshToken({ id: id });
+            // send cookie to cookie storage
+            res.cookie("token", token, {
+              httpOnly: true,
+              maxAge: 60 * 60 * 24 * 1000, //
+            });
             res.status(200).json({
               token: token,
+              refreshToken: refreshToken,
             });
           } else {
             res.status(400).json({ message: "Password is incorrect" });
@@ -90,8 +106,22 @@ const login_post = async (req, res) => {
   }
 };
 
+// login_get
 const login_get = (req, res) => {
-  res.json("login granted");
+  const user = req.user;
+  res.json({ message: "login successful", user: user });
+};
+// logout_delete
+const logout_delete = async (req, res) => {
+  const token = req.headers.cookie;
+  console.log(token);
+  if (token) {
+    res.clearCookie("token");
+    res.json({ message: "logout successful" });
+  } else {
+    // logout unsuccsessful
+    res.json({ message: "logout unsuccsessful" });
+  }
 };
 
-export { sign_post, login_post, login_get, authenticateToken };
+export { sign_post, login_post, login_get, authenticateToken, logout_delete };
