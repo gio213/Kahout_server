@@ -1,8 +1,6 @@
-import express from 'express';
-const router = express.Router();
-import connection from "../config/db.js";
-//id : user_id
-router.get('/:id', async (req, res) => {
+import connection from "../../config/db.js";
+
+const usersResume =  async (req, res) => {
     try {
         const userId = req.params.id;
         const value = [userId]
@@ -47,11 +45,11 @@ router.get('/:id', async (req, res) => {
     LEFT JOIN
         Answers ON Questions.id = Answers.question_id
     WHERE
-        Users.id = 1;
+        Users.id = ?;
     
         `;
 
-        const [rows, fields] = await connection.promise().query(query,value); // Utiliser connection.promise().query pour exécuter la requête
+        const [rows, fields] = await connection.promise().query(query,value); 
         const formattedData = {
             users: [],
         };
@@ -64,7 +62,7 @@ router.get('/:id', async (req, res) => {
             const questionId = row.question_id;
             const answerId = row.answer_id
 
-            // Cherchez l'utilisateur dans le tableau ou ajoutez-le s'il n'existe pas
+            // Search for the user in the array or add him if he does not exist
             let user = formattedData.users.find(user => user.id === userId);
             if (!user) {
                 user = {
@@ -77,7 +75,8 @@ router.get('/:id', async (req, res) => {
                 formattedData.users.push(user);
             }
 
-            // Cherchez la salle dans le tableau ou ajoutez-la s'il n'existe pas
+            
+            // Search for the room in user array or add it if it doesn't exist
             let room = user.rooms.find(room => room.id === roomId);
             if (!room) {
                 room = {
@@ -92,7 +91,7 @@ router.get('/:id', async (req, res) => {
                 };
                 user.rooms.push(room);
             }
-            // fetch players of the room
+           // Search for  player in rooms array or add him if he does not exist
             let player = room.players.find(player => player.id === playerId);
             if (!player) {
                 player = {
@@ -104,18 +103,19 @@ router.get('/:id', async (req, res) => {
                 room.players.push(player);
             }
             console.log(rows);
-            // fetch quizz
+
+             // Search for the quizz in rooms array or add it if it doesn't exist
             let quizz = room.quizz.find(q => q.id === quizzId);
             if (!quizz) {
                 quizz = {
                     id: quizzId,
                     name: row.quizz_name,
-                    question: []
+                    questions: []
                 };
                 room.quizz.push(quizz);
             }
-
-            let question = quizz.question.find(q => q.id === questionId);
+            // Search for the question in quizz array or add it if it doesn't exist
+            let question = quizz.questions.find(q => q.id === questionId);
             if (!question) {
                 question = {
                     id: questionId,
@@ -126,8 +126,9 @@ router.get('/:id', async (req, res) => {
                     answers: []
 
                 };
-                quizz.question.push(question);
+                quizz.questions.push(question);
             }
+            // Search for the answer in questions array or add it if it doesn't exist
             let answers = question.answers.find(answer => answer.id === answerId);
             if (!answers) {
                 answers = {
@@ -150,6 +151,5 @@ router.get('/:id', async (req, res) => {
         console.error(err);
         res.status(500).json({ message: 'Server Error' });
     }
-});
-
-export default router;
+}
+export default usersResume;

@@ -1,7 +1,7 @@
 import questionRouter from "../routes/questionRoutes/question.js";
 
 import express from "express";
-import usersRouter from "./users.js";
+import usersRouter from "./usersRoutes/users.js";
 import renameQuizzRouter from "./quizzRoutes/renameQuizz.js";
 import createQuizzRouter from "./quizzRoutes/createQuizz.js";
 import getQuizzRouter from "./quizzRoutes/getQuizz.js";
@@ -19,7 +19,9 @@ import deleteAnswerRoute from "../routes/answersRoutes/deleteAnswerByID.js";
 import delete_answer_by_question_id from "../routes/answersRoutes/deleteAnswersByQuestionID.js";
 import updateCorrectAnswerRouter from "../routes/answersRoutes/updateCorrectAnswer.js"
 import getCorrectAnswers from "../routes/answersRoutes/getCorrectAnswers.js";
-import resumeRouter from "../routes/resumeRoutes.js"
+import resumeRouter from "./usersRoutes/resumeRoutes.js"
+import quizzResumeRouter from "./quizzRoutes/resumeRoute.js"
+import questionResumeRouter from "./questionRoutes/resumeRoute.js"
 let router = express.Router();
 // api doc router
 router.use("/api-docs", apiDocRouter);
@@ -73,5 +75,7 @@ router.use("/delete_answers", delete_answer_by_question_id);
 
 //all data
 router.use("/users", resumeRouter)
+router.use("/quizz", quizzResumeRouter)
+router.use("/question/resume", questionResumeRouter)
 
 export default router;
