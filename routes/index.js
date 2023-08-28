@@ -12,11 +12,12 @@ import createPlayerRouter from "./playersRoutes/createPlayers.js";
 import listOfPlayerRouter from "./playersRoutes/getPlayers.js";
 import getTopFiveRouter from "./playersRoutes/getTopFive.js";
 import createAnswerRouter from "../controllers/answersControllers/createAnswer.js";
-import updateAnswer from "../routes/answersRoutes/updateAnswerText.js";
+import updateAnswer from "./answersRoutes/updateAnswerTextAndCorrect.js";
 import apiDocRouter from "./apiDoc.js";
 import getAnswersByQuestionID from "../routes/answersRoutes/getAnswerByQuestionID.js";
 import deleteAnswerRoute from "../routes/answersRoutes/deleteAnswerByID.js";
 import delete_answer_by_question_id from "../routes/answersRoutes/deleteAnswersByQuestionID.js";
+import update_answer_text_by_id from "./answersRoutes/updateAnswerText.js";
 
 let router = express.Router();
 // api doc router
@@ -49,7 +50,10 @@ router.use("/topFive", getTopFiveRouter);
 
 // create answer for questions
 router.use("/add_answer", createAnswerRouter);
-router.use("/update_answer", updateAnswer);
+// update answers text and correct together by id
+router.use("/update_answer_text_correct", updateAnswer);
+// update answer text by id
+router.use("/update_answer_text", update_answer_text_by_id);
 
 // get answers by question id
 router.use("/get_answers", getAnswersByQuestionID);
