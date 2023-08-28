@@ -19,5 +19,5 @@ if (port == null || port == "") {
 app.use("/api", router);
 
 app.listen(port, () => {
-  console.log(`App running on port ${port}.`);
+  console.log(`App running on port! ${port}.`);
 });
