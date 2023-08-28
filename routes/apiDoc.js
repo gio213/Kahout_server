@@ -134,7 +134,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 /**
  * @swagger
- * /api/create_quizz:
+ * /api/quizz/create_quizz:
  *   post:
  *     summary: Add a new quiz.
  *     description: Add a new quiz with a name.
@@ -159,7 +159,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 /**
  * @swagger
- * /api/quizzlist:
+ * /api/quizz/quizzlist:
  *   get:
  *     summary: Retrieve a list of quizzes.
  *     description: Retrieve a list of quizzes from the database.
@@ -187,7 +187,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 /**
  * @swagger
- * /api/quizzlist/{id}:
+ * /api/quizz/quizzlist/{id}:
  *   get:
  *     summary: Retrieve a quiz by its ID.
  *     description: Retrieve a specific quiz by its ID.
@@ -336,7 +336,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 /**
  * @swagger
- * /api/allquestions/{id}:
+ * /api/question/allquestions/{id}:
  *   get:
  *     summary: Get all questions by quiz ID.
  *     parameters:
@@ -430,7 +430,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  */
 /**
  * @swagger
- * /api/add_answer:
+ * /api/answers/add_answer:
  *   post:
  *     summary: Create a new answer.
  *     requestBody:
@@ -471,7 +471,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  */
 /**
  * @swagger
- * /api/get_answers/{id}:
+ * /api/answers/get_answers/{id}:
  *   get:
  *     summary: Retrieve answers for a specific question.
  *     parameters:
@@ -515,7 +515,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 /**
  * @swagger
- * /api/get_correct_answers/{id}:
+ * /api/answers/get_correct_answers/{id}:
  *   get:
  *     summary: Retrieve correct answers for a specific question.
  *     parameters:
@@ -558,7 +558,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  */
 /**
  * @swagger
- * /api/delete_answer/{id}:
+ * /api/answers/delete_answer/{id}:
  *   delete:
  *     summary: Delete an answer by ID.
  *     parameters:
@@ -578,7 +578,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  */
 /**
  * @swagger
- * /api/delete_answers/{id}:
+ * /api/answers/delete_answers/{id}:
  *   delete:
  *     summary: Delete answers by question ID.
  *     parameters:
@@ -599,7 +599,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 /**
  * @swagger
- * /api/update_answer/{id}:
+ * /api/answers/update_answer/{id}:
  *   put:
  *     summary: Update an answer.
  *     parameters:
@@ -634,7 +634,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  */
 /**
  * @swagger
- * /api/update_correct_answer/{id}:
+ * /api/answers/update_correct_answer/{id}:
  *   put:
  *     summary: Update the correctness of a specific answer by its ID.
  *     parameters:
@@ -771,7 +771,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  */
 /**
  * @swagger
- * /api/join_room:
+ * /api/rooms/join_room:
  *   post:
  *     summary: Retrieve room ID by entering a code.
  *     description: Retrieve the room ID associated with a given code.
@@ -823,7 +823,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  */
 /**
  * @swagger
- * /api/player_infos:
+ * /api/players/player_infos:
  *   post:
  *     summary: Create a new player.
  *     description: Create a new player with the provided username, room ID, and current score.
@@ -884,7 +884,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  */
 /**
  * @swagger
- * /api/playerList/{room_id}:
+ * /api/players/playerList/{room_id}:
  *   get:
  *     summary: Retrieve a list of players in a specific room, sorted by current score in descending order.
  *     parameters:
@@ -920,7 +920,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 /**
  * @swagger
- * /api/topFive/{room_id}:
+ * /api/players/topFive/{room_id}:
  *   get:
  *     summary: Retrieve a list of top five players with the highest scores.
  *     parameters:
