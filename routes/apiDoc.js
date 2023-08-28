@@ -12,10 +12,32 @@ const swaggerSpec = swaggerJSDoc(swaggerOptions);
 router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 /* fs.writeFileSync('swagger.json', JSON.stringify(swaggerSpec, null, 2));
  */
+/**
+ * @swagger
+ * /api/users/{id}:
+ *   get:
+ *     summary: Get formatted user data including rooms, quizzes, questions, and answers.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the user for which to retrieve the data.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Formatted user data.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *       500:
+ *         description: Server error while processing the request.
+ */
 
 /**
  * @swagger
- * /api/signup:
+ * /api/sign_up:
  *   post:
  *     summary: Register a new user.
  *     description: Register a new user with a unique username and hashed password.
@@ -80,7 +102,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  * @swagger
  * /api/users:
  *   get:
- *     summary: Retrieve a list of JSONPlaceholder users.
+ *     summary: Retrieve a list of users.
  *     description: Retrieve a list of users .
  *     responses:
  *       200:
@@ -112,7 +134,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 /**
  * @swagger
- * /api/create_quizz:
+ * /api/quizz/create_quizz:
  *   post:
  *     summary: Add a new quiz.
  *     description: Add a new quiz with a name.
@@ -137,7 +159,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 /**
  * @swagger
- * /api/quizzlist:
+ * /api/quizz/quizzlist:
  *   get:
  *     summary: Retrieve a list of quizzes.
  *     description: Retrieve a list of quizzes from the database.
@@ -165,9 +187,9 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 /**
  * @swagger
- * /api/quizzlist/{id}:
+ * /api/quizz/quizzlist/{id}:
  *   get:
- *     summary: Retrieve a specific quiz by its ID.
+ *     summary: Retrieve a quiz by its ID.
  *     description: Retrieve a specific quiz by its ID.
  *     parameters:
  *       - in: path
@@ -314,7 +336,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 /**
  * @swagger
- * /api/allquestions/{id}:
+ * /api/question/allquestions/{id}:
  *   get:
  *     summary: Get all questions by quiz ID.
  *     parameters:
@@ -408,7 +430,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  */
 /**
  * @swagger
- * /api/add_answer:
+ * /api/answers/add_answer:
  *   post:
  *     summary: Create a new answer.
  *     requestBody:
@@ -449,7 +471,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  */
 /**
  * @swagger
- * /api/get_answers/{id}:
+ * /api/answers/get_answers/{id}:
  *   get:
  *     summary: Retrieve answers for a specific question.
  *     parameters:
@@ -490,9 +512,53 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *       500:
  *         description: Server error while processing the request.
  */
+
 /**
  * @swagger
- * /api/delete_answer/{id}:
+ * /api/answers/get_correct_answers/{id}:
+ *   get:
+ *     summary: Retrieve correct answers for a specific question.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the question for which to retrieve correct answers.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: A list of correct answers for the specified question.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     description: The ID of the answer.
+ *                     example: 1
+ *                   text:
+ *                     type: string
+ *                     description: The text of the answer.
+ *                     example: Paris
+ *                   question_id:
+ *                     type: integer
+ *                     description: The ID of the question to which the answers belongs.
+ *                     example: 1
+ *                   correct:
+ *                     type: boolean
+ *                     description: Whether the answer is correct or not.
+ *                     example: true
+ *       404:
+ *         description: Answers not found for the specified question.
+ *       500:
+ *         description: Server error while processing the request.
+ */
+/**
+ * @swagger
+ * /api/answers/delete_answer/{id}:
  *   delete:
  *     summary: Delete an answer by ID.
  *     parameters:
@@ -512,7 +578,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  */
 /**
  * @swagger
- * /api/delete_answers/{id}:
+ * /api/answers/delete_answers/{id}:
  *   delete:
  *     summary: Delete answers by question ID.
  *     parameters:
@@ -533,7 +599,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 /**
  * @swagger
- * /api/update_answer/{id}:
+ * /api/answers/update_answer/{id}:
  *   put:
  *     summary: Update an answer.
  *     parameters:
@@ -565,6 +631,41 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *         description: Answer not found.
  *       500:
  *         description: Server error while processing the request.
+ */
+/**
+ * @swagger
+ * /api/answers/update_correct_answer/{id}:
+ *   put:
+ *     summary: Update the correctness of a specific answer by its ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the answer to update.
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               correct:
+ *                 type: boolean
+ *             example:
+ *               correct: 1
+ *     responses:
+ *       200:
+ *         description: The updated answer.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: A success message.
  */
 
 /**
@@ -670,7 +771,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  */
 /**
  * @swagger
- * /api/join_room:
+ * /api/rooms/join_room:
  *   post:
  *     summary: Retrieve room ID by entering a code.
  *     description: Retrieve the room ID associated with a given code.
@@ -722,7 +823,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  */
 /**
  * @swagger
- * /api/player_infos:
+ * /api/players/player_infos:
  *   post:
  *     summary: Create a new player.
  *     description: Create a new player with the provided username, room ID, and current score.
@@ -783,7 +884,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  */
 /**
  * @swagger
- * /api/playerList/{room_id}:
+ * /api/players/playerList/{room_id}:
  *   get:
  *     summary: Retrieve a list of players in a specific room, sorted by current score in descending order.
  *     parameters:
@@ -819,7 +920,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 /**
  * @swagger
- * /api/topFive/{room_id}:
+ * /api/players/topFive/{room_id}:
  *   get:
  *     summary: Retrieve a list of top five players with the highest scores.
  *     parameters:

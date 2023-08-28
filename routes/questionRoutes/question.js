@@ -5,10 +5,10 @@ import delete_question from "../../controllers/questionControllers/deleteQuestio
 import get_question_by_id from "../../controllers/questionControllers/getQuestionByID.js";
 import get_all_questions_by_quizz_id from "../../controllers/questionControllers/getAllQuestionsByQuizzID.js";
 const router = Router();
-router.post("/question", question_post);
-router.put("/question/:id", question_update);
-router.delete("/question/:id", delete_question);
-router.get("/question/:id", get_question_by_id);
+router.post("/", question_post);
+router.put("/:id", question_update);
+router.delete("/:id", delete_question);
+router.get("/:id", get_question_by_id);
 router.get("/allquestions/:id", get_all_questions_by_quizz_id);
 
 export default router;
