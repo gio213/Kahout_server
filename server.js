@@ -18,6 +18,6 @@ let port = process.env.PORT || 3000;
 
 app.use("/api", router);
 
-app.listen(() => {
+app.listen(port, () => {
   console.log(`App running on port! ${port}.`);
 });
