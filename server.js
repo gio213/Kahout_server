@@ -11,13 +11,13 @@ app.use(
   })
 );
 
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 3000;
-}
+let port = process.env.PORT || 3000;
+// if (port == null || port == "") {
+//   port = 3000;
+// }
 
 app.use("/api", router);
 
-app.listen(port, () => {
+app.listen(() => {
   console.log(`App running on port! ${port}.`);
 });
