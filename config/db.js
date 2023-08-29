@@ -10,13 +10,11 @@ const connection = mysql.createConnection({
   connectionLimit: 10,
   queueLimit: 0,
 });
-const wee = async () => {
-  try {
-    await connection.connect();
-    console.log("Database connected");
-  } catch (error) {
-    console.log("Database connection failed");
-  }
-};
+try {
+  connection.connect();
+  console.log("Database connected");
+} catch (error) {
+  console.log("Database connection failed");
+}
 
 export default connection;
