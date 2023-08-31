@@ -24,7 +24,7 @@ router.use("/get_correct_answers", getCorrectAnswers)
 router.use("/update_answer",updateAnswerText)
 //update the correctness of a specific answer 
 router.use("/update_correct_answers",updateCorrectAnswer)
-// update text and correct answer !!!!!!!!!!! check api
+// update text and correct answer 
 router.use("/update_answers_text_correct",updateAnswerTextAndCorrect)
  
 export default router;

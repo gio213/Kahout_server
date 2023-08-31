@@ -84,7 +84,6 @@ const usersResume =  async (req, res) => {
                     name: row.room_name,
                     capacity: row.room_capacity,
                     code: row.room_code,
-                    user_id: row.room_user_id,
                     quizz: [],
                     players: []
 
@@ -97,7 +96,6 @@ const usersResume =  async (req, res) => {
                 player = {
                     id: playerId,
                     username: row.player_username,
-                    room_id: row.player_room_id,
                     current_score: row.player_current_score
                 };
                 room.players.push(player);

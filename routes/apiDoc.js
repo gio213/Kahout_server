@@ -12,9 +12,11 @@ const swaggerSpec = swaggerJSDoc(swaggerOptions);
 router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 /* fs.writeFileSync('swagger.json', JSON.stringify(swaggerSpec, null, 2));
  */
+
+
 /**
  * @swagger
- * /api/users/{id}:
+ * /api/users/resume/{id}:
  *   get:
  *     summary: Get formatted user data including rooms, quizzes, questions, and answers.
  *     parameters:
@@ -26,11 +28,89 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *           type: integer
  *     responses:
  *       200:
- *         description: Formatted user data.
+ *         description: All user related data.
  *         content:
  *           application/json:
  *             schema:
  *               type: object
+ *               properties:
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       description: The ID of the user.
+ *                     username:
+ *                       type: string
+ *                       description: The username of the user.
+ *                     password:
+ *                       type: string
+ *                       description: The password of the user.
+ *                     rooms:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: integer
+ *                             description: The ID of the room.
+ *                           name:
+ *                             type: string
+ *                             description: The name of the room.
+ *                             example: Room A
+ *                           capacity:
+ *                             type: integer
+ *                             description: The capacity of the room.
+ *                             example: 50
+ *                           code:
+ *                             type: string
+ *                             description: The code for the room.
+ *                             example: ABC123
+ *                           quizzes:
+ *                             type: array
+ *                             items:
+ *                               type: object
+ *                               properties:
+ *                                 id:
+ *                                   type: integer
+ *                                   description: The ID of the quiz.
+ *                                 name:
+ *                                   type: string
+ *                                   description: The name of the quiz.
+ *                                 questions:
+ *                                   type: array
+ *                                   items:
+ *                                     type: object
+ *                                     properties:
+ *                                       id:
+ *                                         type: integer
+ *                                         description: The ID of the question.
+ *                                       text:
+ *                                         type: string
+ *                                         description: The text of the question.
+ *                                       type:
+ *                                         type: string
+ *                                         description: The type of the question.
+ *                                       time_limit:
+ *                                         type: integer
+ *                                         description: The time limit for answering the question.
+ *                                       multi_select:
+ *                                         type: boolean
+ *                                         description: Whether the question allows multiple answers.
+ *                                       answers:
+ *                                         type: array
+ *                                         items:
+ *                                           type: object
+ *                                           properties:
+ *                                             id:
+ *                                               type: integer
+ *                                               description: The ID of the answer.
+ *                                             text:
+ *                                               type: string
+ *                                               description: The text of the answer.
+ *                                             correct:
+ *                                               type: integer
+ *                                               description: Whether the answer is correct (0 or 1).
  *       500:
  *         description: Server error while processing the request.
  */
@@ -131,6 +211,72 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *                         example: "$2b$08$l.dw1P8sX1eNPAbf69TrO.V4m.n.F.LnzSKHHJAJA0rwdBPxMzNBC"
  */
 
+/**
+ * @swagger
+ * /api/quizz/resume/{id}:
+ *   get:
+ *     summary: Get quiz details by ID along with associated questions and answers.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the quiz to retrieve.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved quiz, questions, and associated answers.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 quizz:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       description: The ID of the quiz.
+ *                     name:
+ *                       type: string
+ *                       description: The name of the quiz.
+ *                     questions:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: integer
+ *                             description: The ID of the question.
+ *                           text:
+ *                             type: string
+ *                             description: The text of the question.
+ *                           type:
+ *                             type: string
+ *                             description: The type of the question.
+ *                           time_limit:
+ *                             type: integer
+ *                             description: The time limit for answering the question.
+ *                           multi_select:
+ *                             type: boolean
+ *                             description: Whether the question allows multiple answers.
+ *                           answers:
+ *                             type: array
+ *                             items:
+ *                               type: object
+ *                               properties:
+ *                                 id:
+ *                                   type: integer
+ *                                   description: The ID of the answer.
+ *                                 text:
+ *                                   type: string
+ *                                   description: The text of the answer.
+ *                                 correct:
+ *                                   type: integer
+ *                                   description: Whether the answer is correct (0 or 1).
+ *       500:
+ *         description: Server error while processing the request.
+ */
 
 /**
  * @swagger
@@ -215,6 +361,61 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *                 room_id:
  *                   type: integer
  *                   description: The ID of the associated room.
+ */
+/**
+ * @swagger
+ * /api/question/resume/{id}:
+ *   get:
+ *     summary: Get question details by ID along with associated answers.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the question to retrieve.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved question and associated answers.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 question:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       description: The ID of the question.
+ *                     text:
+ *                       type: string
+ *                       description: The text of the question.
+ *                     type:
+ *                       type: string
+ *                       description: The type of the question.
+ *                     time_limit:
+ *                       type: integer
+ *                       description: The time limit for answering the question.
+ *                     multi_select:
+ *                       type: boolean
+ *                       description: Whether the question allows multiple answers.
+ *                     answers:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: integer
+ *                             description: The ID of the answer.
+ *                           text:
+ *                             type: string
+ *                             description: The text of the answer.
+ *                           correct:
+ *                             type: integer
+ *                             description: Whether the answer is correct (0 or 1).
+ *       500:
+ *         description: Server error while processing the request.
  */
 
 /**
@@ -620,10 +821,6 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *                 type: string
  *                 description: The updated text of the answer.
  *                 example: Berlin
- *               correct:
- *                 type: boolean
- *                 description: Whether the answer is correct or not.
- *                 example: 0
  *     responses:
  *       200:
  *         description: Answer updated successfully.
@@ -634,7 +831,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  */
 /**
  * @swagger
- * /api/answers/update_correct_answer/{id}:
+ * /api/answers/update_correct_answers/{id}:
  *   put:
  *     summary: Update the correctness of a specific answer by its ID.
  *     parameters:
@@ -667,7 +864,40 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *                   type: string
  *                   description: A success message.
  */
-
+/**
+ * @swagger
+ * /api/answers/update_answers_text_correct/{id}:
+ *   put:
+ *     summary: Update an answer.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the answer to update.
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               text:
+ *                 type: string
+ *                 description: The updated text of the answer.
+ *                 example: Berlin
+ *               correct:
+ *                 type: boolean
+ *                 example: 1
+ *     responses:
+ *       200:
+ *         description: Answer updated successfully.
+ *       404:
+ *         description: Answer not found.
+ *       500:
+ *         description: Server error while processing the request.
+ */
 /**
  * @swagger
  * /api/rooms:
@@ -955,7 +1185,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 /**
  * @swagger
- * /api/quizzlist/update-room/{id}:
+ * /api/quizz/quizzlist/update-room/{id}:
  *   put:
  *     summary: Update the room_id of a specific quizz by its ID.
  *     parameters:

@@ -7,7 +7,7 @@ import apiDocRouter from "./apiDoc.js";
 import answersRoute from "./answersRoutes/index.js"
 import roomsRouter from "./roomsRoutes/index.js"
 import questionRouter from "./questionRoutes/index.js"
-import apiDocRouter from "./apiDoc.js";
+
 
 
 
