@@ -12,7 +12,9 @@ const get_all_questions_by_quizz_id = async (req, res) => {
     }
 
     if (results.length === 0) {
-      res.status(404).json({ message: "Questions not found with this quizz id" });
+      res
+        .status(404)
+        .json({ message: "Questions not found with this quizz id" });
     } else {
       res.json(results);
     }

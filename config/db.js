@@ -10,6 +10,7 @@ const connection = mysql.createConnection({
   connectionLimit: 10,
   queueLimit: 0,
 });
+
 try {
   connection.connect();
   console.log("Database connected");
