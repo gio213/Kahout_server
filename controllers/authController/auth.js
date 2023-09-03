@@ -45,7 +45,6 @@ const sign_post = async (req, res) => {
         }
       }
     );
-    connection.end();
   }
 };
 
@@ -107,7 +106,6 @@ const login_post = async (req, res) => {
       }
     );
   }
-  connection.end();
 };
 
 // login_get

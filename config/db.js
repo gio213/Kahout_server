@@ -11,6 +11,8 @@ const connection = mysql.createConnection({
   queueLimit: 0,
 });
 
+connection.end();
+
 // try {
 //   connection.connect();
 //   console.log("Database connected");
