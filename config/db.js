@@ -11,11 +11,11 @@ const connection = mysql.createConnection({
   queueLimit: 0,
 });
 
-try {
-  connection.connect();
-  console.log("Database connected");
-} catch (error) {
-  console.log("Database connection failed");
-}
+// try {
+//   connection.connect();
+//   console.log("Database connected");
+// } catch (error) {
+//   console.log("Database connection failed");
+// }
 
 export default connection;
