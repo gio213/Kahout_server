@@ -69,7 +69,6 @@ const authenticateToken = (req, res, next) => {
 
 // login_post
 const login_post = async (req, res) => {
-  connection.connect();
   const { username, password } = req.body;
   if (!username || !password) {
     res.status(400).json({ message: "Please fill in all fields" });
