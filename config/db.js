@@ -1,5 +1,6 @@
 import mysql from "mysql2";
 import dotenv from "dotenv";
+import { Connection } from "mysql2/typings/mysql/lib/Connection";
 dotenv.config({ path: "./.env" });
 const connection = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -11,11 +12,19 @@ const connection = mysql.createConnection({
   queueLimit: 0,
 });
 
-try {
-  connection.connect();
-  console.log("Database connected");
-} catch (error) {
-  console.log("Database connection failed");
-}
+connection.connect((err) => {
+  if (err) {
+    console.error("Database connection failed:", err.message);
+  } else {
+    console.log("Database connected");
+  }
+});
 
+connection.end((err) => {
+  if (err) {
+    console.error("Error closing database connection:", err.message);
+  } else {
+    console.log("Database connection closed");
+  }
+});
 export default connection;

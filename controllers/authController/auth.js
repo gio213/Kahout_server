@@ -100,6 +100,7 @@ const login_post = async (req, res) => {
           }
         } else {
           res.status(400).json({ message: "User does not exist" });
+          connection.end();
         }
       }
     );
