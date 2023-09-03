@@ -8,12 +8,12 @@ import jwt from "jsonwebtoken";
 
 // sign_post
 const sign_post = async (req, res) => {
-  connection.connect();
   const { username, password } = req.body;
 
   if (!username || !password) {
     res.json({ message: "Please fill in all fields" });
   } else {
+    connection.connect();
     connection.query(
       "select username from Users WHERE username = ?",
       [username],
