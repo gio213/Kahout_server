@@ -89,7 +89,7 @@ const login_post = async (req, res) => {
             // send cookie to cookie storage
             res.cookie("token", token, {
               httpOnly: true,
-              maxAge: 60 * 60 * 24 * 1000, //
+              maxAge: 60 * 60 * 24 * 1000,
             });
             res.status(200).json({
               token: token,
@@ -103,8 +103,6 @@ const login_post = async (req, res) => {
         }
       }
     );
-    connection.end();
-    console.log("connection ended");
   }
 };
 
