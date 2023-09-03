@@ -13,8 +13,7 @@ const sign_post = async (req, res) => {
   if (!username || !password) {
     res.json({ message: "Please fill in all fields" });
   } else {
-    connection.connect();
-    connection.query(
+    await connection.query(
       "select username from Users WHERE username = ?",
       [username],
       async (error, results) => {
@@ -30,7 +29,7 @@ const sign_post = async (req, res) => {
 
     let hashedPassword = await bcrypt.hash(password, 8);
     console.log(hashedPassword);
-    connection.query(
+    await connection.query(
       "INSERT INTO Users SET ? ",
       {
         username: username,
@@ -42,6 +41,7 @@ const sign_post = async (req, res) => {
         } else {
           console.log(results);
           res.json({ message: "User registered" });
+          connection.end();
         }
       }
     );
