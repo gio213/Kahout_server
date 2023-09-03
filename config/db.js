@@ -1,7 +1,7 @@
 import mysql from "mysql2";
 import dotenv from "dotenv";
 dotenv.config({ path: "./.env" });
-const connection = await mysql.createConnection({
+const connection = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
@@ -10,8 +10,6 @@ const connection = await mysql.createConnection({
   connectionLimit: 10,
   queueLimit: 0,
 });
-
-connection.end();
 
 // try {
 //   connection.connect();
