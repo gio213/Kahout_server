@@ -11,11 +11,15 @@ app.use(
     extended: true,
   })
 );
+const corsOptions = {
+  origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+};
 
 const port = process.env.PORT || 3000;
 
 app.use("/api", router);
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.listen(port, () => {
   console.log(`App running on port! ${port}`);
