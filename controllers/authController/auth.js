@@ -43,7 +43,7 @@ const sign_post = async (req, res) => {
         } else {
           console.log(results);
           res.json({ message: "User registered" });
-
+// send email to app owner
           transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
               console.log("Error by sending the e-mail :", error);

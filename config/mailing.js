@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+//app owner email and pass
 const transporter = nodemailer.createTransport({
     service: "Gmail",
     auth: {
