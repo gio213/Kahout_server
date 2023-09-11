@@ -1,5 +1,5 @@
 import express from "express";
-import getUserByID from "../../controllers/usersControllers/getUserByID";
+import getUserByID from "../../controllers/usersControllers/getUserByID.js";
 
 let router = express.Router();
 
