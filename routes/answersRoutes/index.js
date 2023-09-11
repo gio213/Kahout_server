@@ -22,15 +22,7 @@ router.use("/get_answers", getAnswersByQuestionID);
 // get correct answers by question id
 router.use("/get_correct_answers", getCorrectAnswers);
 //update text  answer
-<<<<<<< HEAD
-router.use("/update_answer",updateAnswerText)
-//update the correctness of a specific answer 
-router.use("/update_correct_answers",updateCorrectAnswer)
-// update text and correct answer 
-router.use("/update_answers_text_correct",updateAnswerTextAndCorrect)
- 
-export default router;
-=======
+
 router.use("/update_answer", updateAnswerText);
 //update the correctness of a specific answer
 router.use("/update_correct_answers", updateCorrectAnswer);
@@ -42,4 +34,4 @@ router.use("/update_answer_type", updateAnswerTypeWithID);
 router.use("/get_answers_img_type", getAnswersImgType);
 
 export default router;
->>>>>>> f68f43fe03da57cc5fe80d22eed720a2b7fff510
+
