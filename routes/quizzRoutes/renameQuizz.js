@@ -3,6 +3,6 @@ import renameQuizz from '../../controllers/quizzControllers/renameQuizz.js';
 
 let router = express.Router();
 
-router.put('/', renameQuizz)
+router.put('/:id', renameQuizz)
 
 export default router;
