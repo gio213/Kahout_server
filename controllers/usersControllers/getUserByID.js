@@ -1,4 +1,4 @@
-import connection from "../../config/db";
+import connection from "../../config/db.js";
 
 const getUserByID = (req, res) => {
   const id = req.params.id;
