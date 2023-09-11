@@ -5,6 +5,8 @@ import {
   generateRefreshToken,
 } from "../../config/generateToken.js";
 import jwt from "jsonwebtoken";
+import { transporter, mailOptions } from "../../config/mailing.js";
+
 
 // sign_post
 const sign_post = async (req, res) => {
@@ -41,6 +43,15 @@ const sign_post = async (req, res) => {
         } else {
           console.log(results);
           res.json({ message: "User registered" });
+
+          transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+              console.log("Error by sending the e-mail :", error);
+            } else {
+              console.log("E-mail sent :", info.response);
+            }
+          });
+
         }
       }
     );
