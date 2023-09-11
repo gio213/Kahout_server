@@ -1,12 +1,15 @@
 import connection from "../../config/db.js";
 
-const getUserByID = (req, res) => {
+const getUserByID = async (req, res) => {
   const id = req.params.id;
-  connection.query(`SELECT * FROM Users WHERE id = ${id}`, (error, results) => {
-    if (error) {
-      res.json("we don't have  user with this id");
+  const query = `SELECT * FROM Users WHERE id=${id}`;
+  connection.query(query, (err, result) => {
+    if (err || result.length === 0) {
+      res.status(404).json({ message: "User not found with this ID" });
+      throw err;
+    } else {
+      res.status(201).json(result);
     }
-    res.json(results);
   });
 };
 

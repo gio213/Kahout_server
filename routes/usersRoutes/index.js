@@ -9,6 +9,6 @@ router.use("/", getUsers);
 // resume all data
 router.use("/resume", resumeRoutes);
 // show user by id
-router.use("/:id", getUserByID);
+router.use("/", getUserByID);
 
 export default router;
