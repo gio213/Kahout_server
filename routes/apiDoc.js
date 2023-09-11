@@ -14,106 +14,76 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  */
 
 
+
 /**
  * @swagger
- * /api/users/resume/{id}:
- *   get:
- *     summary: Get formatted user data including rooms, quizzes, questions, and answers.
+ * /api/users/backgroundImage/{id}:
+ *   put:
+ *     summary: Update the backgroudImage of an user by his ID.
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: The ID of the user for which to retrieve the data.
+ *         description: The ID of the user.
  *         schema:
  *           type: integer
+ *     requestBody: # Avec requestBody
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               newFile:
+ *                 type: string
+ *             example:
+ *               newFile: backgroud.jpg
  *     responses:
  *       200:
- *         description: All user related data.
+ *         description: The updated backgroudImage.
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 user:
- *                   type: object
- *                   properties:
- *                     id:
- *                       type: integer
- *                       description: The ID of the user.
- *                     username:
- *                       type: string
- *                       description: The username of the user.
- *                     password:
- *                       type: string
- *                       description: The password of the user.
- *                     rooms:
- *                       type: array
- *                       items:
- *                         type: object
- *                         properties:
- *                           id:
- *                             type: integer
- *                             description: The ID of the room.
- *                           name:
- *                             type: string
- *                             description: The name of the room.
- *                             example: Room A
- *                           capacity:
- *                             type: integer
- *                             description: The capacity of the room.
- *                             example: 50
- *                           code:
- *                             type: string
- *                             description: The code for the room.
- *                             example: ABC123
- *                           quizzes:
- *                             type: array
- *                             items:
- *                               type: object
- *                               properties:
- *                                 id:
- *                                   type: integer
- *                                   description: The ID of the quiz.
- *                                 name:
- *                                   type: string
- *                                   description: The name of the quiz.
- *                                 questions:
- *                                   type: array
- *                                   items:
- *                                     type: object
- *                                     properties:
- *                                       id:
- *                                         type: integer
- *                                         description: The ID of the question.
- *                                       text:
- *                                         type: string
- *                                         description: The text of the question.
- *                                       type:
- *                                         type: string
- *                                         description: The type of the question.
- *                                       time_limit:
- *                                         type: integer
- *                                         description: The time limit for answering the question.
- *                                       multi_select:
- *                                         type: boolean
- *                                         description: Whether the question allows multiple answers.
- *                                       answers:
- *                                         type: array
- *                                         items:
- *                                           type: object
- *                                           properties:
- *                                             id:
- *                                               type: integer
- *                                               description: The ID of the answer.
- *                                             text:
- *                                               type: string
- *                                               description: The text of the answer.
- *                                             correct:
- *                                               type: integer
- *                                               description: Whether the answer is correct (0 or 1).
+ *                 id:
+ *                   type: integer
+ *                   description: The quiz ID.
+ *                 name:
+ *                   type: string
+ *                   description: The quiz name.
+ *                 room_id:
+ *                   type: integer
+ *                   description: The updated room_id.  
+ */
+/**
+ * @swagger
+ * /api/users/backgroundImage/{id}:
+ *   get:
+ *     summary: Get Background Image by user's ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the user to retrieve.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved Background Image.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 backgroundImage:
+ *                   type: string
+ *                   example: backgroundImage.jpg
  *       500:
  *         description: Server error while processing the request.
  */
+
+
 
 /**
  * @swagger
@@ -302,6 +272,36 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *       500:
  *         description: Internal server error.
  */
+/**
+ * @swagger
+ * /api/quizz/rename_quizz/{id}:
+ *   put:
+ *     summary: Rename a quiz by its ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the quiz to rename.
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               newName:
+ *                 type: string
+ *                 description: The new name for the quiz.
+ *                 example: New quiz name
+ *     responses:
+ *       200:
+ *         description: The quiz has been renamed successfully.
+ *       500:
+ *         description: Server error while processing the request.
+ */
+
 
 /**
  * @swagger
@@ -1224,4 +1224,7 @@ router.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *                   type: integer
  *                   description: The updated room_id.  
  */
+
+
+
 export default router;
