@@ -26,7 +26,6 @@ const sign_post = async (req, res) => {
         }
       }
     );
-
     let hashedPassword = await bcrypt.hash(password, 8);
     console.log(hashedPassword);
     connection.query(
@@ -49,16 +48,18 @@ const sign_post = async (req, res) => {
 
 // authenticateToken
 const authenticateToken = (req, res, next) => {
-  let token = req.headers.cookie;
-  console.log(token);
-  if (token == null) {
+  // check token
+  let token = req.headers.authorization;
+  token = token.split(" ")[1];
+  if (!token) {
     // can't access this route without a token
     return res.json({ message: "can't access this route without a token" });
   }
   // checl token expiration
-  token = token.split("=")[1];
+
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
+      console.log(token);
       console.log(err);
       return res.status(403).json({ message: "token is not valid" });
     }

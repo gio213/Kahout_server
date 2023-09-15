@@ -1,5 +1,6 @@
 {
   "oneDarkPro.bold": true,
-  "terminal.integrated.fontWeightBold": "normal",
-  "editor.fontWeight": "normal"
+  "terminal.integrated.fontWeightBold": "bold",
+  "editor.fontWeight": "bold",
+  "terminal.integrated.fontWeight": "bold"
 }

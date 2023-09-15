@@ -11,15 +11,17 @@ app.use(
     extended: true,
   })
 );
-const corsOptions = {
-  origin: "*",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  Credentials: true,
-};
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "authorization"],
+  })
+);
 
 const port = process.env.PORT || 3000;
 
-app.use(cors(corsOptions));
 app.use("/api", router);
 
 app.listen(port, () => {
