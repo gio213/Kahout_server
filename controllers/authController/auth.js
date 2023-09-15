@@ -64,6 +64,7 @@ const authenticateToken = (req, res, next) => {
       return res.status(403).json({ message: "token is not valid" });
     }
     req.user = user;
+    console.log(user);
     next();
   });
 };
@@ -110,7 +111,20 @@ const login_post = async (req, res) => {
 // login_get
 const login_get = (req, res) => {
   const user = req.user;
-  res.json({ message: "login successful", user: user });
+  const getUser =
+    "SELECT id , username, backgroundImage FROM Users WHERE id = ?";
+  connection.query(getUser, [user.id], (error, results) => {
+    if (error) {
+      console.log(error);
+    }
+    if (results.length > 0) {
+      res.json({ message: "login successful", user: results[0] });
+    } else {
+      res.json({ message: "login unsuccessful" });
+    }
+  });
+
+  // res.json({ message: "login successful", user: user });
 };
 // logout_delete
 const logout_delete = async (req, res) => {
